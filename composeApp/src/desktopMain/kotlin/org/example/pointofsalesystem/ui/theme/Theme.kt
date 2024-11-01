@@ -58,6 +58,7 @@ fun Typography.defaultFontFamily(fontFamily: FontFamily): Typography {
         bodySmall = this.bodySmall.copy(fontFamily = fontFamily),
         labelLarge = this.labelLarge.copy(fontFamily = fontFamily),
         labelMedium = this.labelMedium.copy(fontFamily = fontFamily),
-        labelSmall = this.labelSmall.copy(fontFamily = fontFamily)
+        labelSmall = this.labelSmall.copy(fontFamily = fontFamily),
+
     )
 }
