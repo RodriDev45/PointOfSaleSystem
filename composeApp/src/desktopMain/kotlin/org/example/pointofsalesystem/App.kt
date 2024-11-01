@@ -17,7 +17,7 @@ import org.koin.compose.KoinContext
 fun App() {
     KoinContext {
         PointOfSaleSystemTheme {
-            Surface(modifier = Modifier.fillMaxSize()) {
+            Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
                 NavGraph(
                     startDestination = Route.Auth.AuthMain.route,
                 )
