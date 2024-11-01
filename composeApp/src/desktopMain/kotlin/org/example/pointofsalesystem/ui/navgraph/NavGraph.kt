@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import org.example.pointofsalesystem.ui.components.text.*
 
 @Composable
 fun NavGraph(
@@ -51,7 +52,27 @@ fun NavGraph(
                 Column(
                     modifier = Modifier.fillMaxSize(),
                 ) {
-                    Text(text = "Login")
+                    Heading1("Login")
+                    Heading1Medium("Login")
+                    Heading1SemiBold("Login")
+                    Heading1Bold("Login")
+                    Heading2("Login")
+                    Heading2Medium("Login")
+                    Heading2SemiBold("Login")
+                    Heading2Bold("Login")
+                    SubHeading("Login")
+                    SubHeadingMedium("Login")
+                    SubHeadingSemiBold("Login")
+                    SubHeadingBold("Login")
+                    Body1("Login")
+                    Body1Medium("Login")
+                    Body1SemiBold("Login")
+                    Body1Bold("Login")
+                    Body2("Login")
+                    Body2Medium("Login")
+                    Body2SemiBold("Login")
+                    Body2Bold("Login")
+
                     Button(onClick = { navController.navigate(route = Route.Auth.Register.route) }) {
                         Text(text = "Ir a Register")
                     }
