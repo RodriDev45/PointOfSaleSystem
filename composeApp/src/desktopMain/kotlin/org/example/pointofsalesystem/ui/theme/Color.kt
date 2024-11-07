@@ -2,6 +2,9 @@ package org.example.pointofsalesystem.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
+
+
+val LogoColor = Color(0xFF009ED8)
 val Primary50 = Color(0xFFE8F1FD)
 val Primary600 = Color(0xFF1366D9)
 val Primary100 = Color(0xFFB5D2F9)
