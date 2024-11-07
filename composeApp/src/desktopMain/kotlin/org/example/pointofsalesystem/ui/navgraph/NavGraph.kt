@@ -2,17 +2,24 @@ package org.example.pointofsalesystem.ui.navgraph
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import org.example.pointofsalesystem.ui.components.buttons.ButtonPrimary
 import org.example.pointofsalesystem.ui.components.text.*
+import org.example.pointofsalesystem.ui.screens.login.LoginScreen
+import org.jetbrains.compose.resources.painterResource
+import pointofsalesystem.composeapp.generated.resources.Res
+import pointofsalesystem.composeapp.generated.resources.logo_point
 
 @Composable
 fun NavGraph(
@@ -49,34 +56,7 @@ fun NavGraph(
     ) {
         navigation(startDestination = Route.Auth.Login.route, route = Route.Auth.AuthMain.route){
             composable(route = Route.Auth.Login.route) {
-                Column(
-                    modifier = Modifier.fillMaxSize(),
-                ) {
-                    Heading1("Login")
-                    Heading1Medium("Login")
-                    Heading1SemiBold("Login")
-                    Heading1Bold("Login")
-                    Heading2("Login")
-                    Heading2Medium("Login")
-                    Heading2SemiBold("Login")
-                    Heading2Bold("Login")
-                    SubHeading("Login")
-                    SubHeadingMedium("Login")
-                    SubHeadingSemiBold("Login")
-                    SubHeadingBold("Login")
-                    Body1("Login")
-                    Body1Medium("Login")
-                    Body1SemiBold("Login")
-                    Body1Bold("Login")
-                    Body2("Login")
-                    Body2Medium("Login")
-                    Body2SemiBold("Login")
-                    Body2Bold("Login")
-
-                    Button(onClick = { navController.navigate(route = Route.Auth.Register.route) }) {
-                        Text(text = "Ir a Register")
-                    }
-                }
+                LoginScreen()
             }
             composable(route = Route.Auth.Register.route) {
                 Column(
