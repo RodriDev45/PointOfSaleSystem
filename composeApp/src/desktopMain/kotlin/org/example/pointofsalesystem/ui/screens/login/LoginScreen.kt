@@ -1,6 +1,5 @@
 package org.example.pointofsalesystem.ui.screens.login
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
@@ -8,12 +7,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlinx.coroutines.launch
 import org.example.pointofsalesystem.domain.model.LoginModel
 import org.example.pointofsalesystem.ui.components.buttons.ButtonGoogle
 import org.example.pointofsalesystem.ui.components.buttons.ButtonPrimary
@@ -29,6 +26,7 @@ import org.koin.compose.viewmodel.koinViewModel
 fun LoginScreen(
     viewModel: LoginViewModel = koinViewModel(),
 ) {
+
     Row(
         modifier = Modifier.fillMaxSize(),
     ) {
@@ -135,9 +133,7 @@ fun LoginScreen(
                     modifier = Modifier.fillMaxWidth(),
                     text = "Sign in with Google",
                     onClick = {
-                        viewModel.handleSubmit { data: LoginModel ->
-                            viewModel.login(data)
-                        }
+                        viewModel.loginGoogle()
                     }
                 )
                 Spacer(modifier = Modifier.height(40.dp))

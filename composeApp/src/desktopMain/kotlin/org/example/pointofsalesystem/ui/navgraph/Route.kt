@@ -8,6 +8,11 @@ sealed class Route(val route: String) {
         object Register : Auth("auth/register")
     }
 
+    sealed class Splash(route: String) : Route(route) {
+        object SplashMain : Splash("splash")
+        object SplashLoading : Splash("loading")
+    }
+
     // Rutas del panel de control agrupadas
     sealed class Dashboard(route: String) : Route(route) {
         object Main : Dashboard("dashboard")

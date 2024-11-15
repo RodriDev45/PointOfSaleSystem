@@ -3,32 +3,52 @@ package org.example.pointofsalesystem.ui.navgraph
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.Button
+import androidx.compose.material3.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.ColorFilter
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
+import kotlinx.coroutines.launch
 import org.example.pointofsalesystem.ui.components.buttons.ButtonPrimary
-import org.example.pointofsalesystem.ui.components.text.*
+import org.example.pointofsalesystem.ui.components.text.Heading1SemiBold
 import org.example.pointofsalesystem.ui.screens.login.LoginScreen
+import org.example.pointofsalesystem.ui.screens.splash.SplashScreen
+import org.example.pointofsalesystem.ui.theme.Primary600
+import org.example.pointofsalesystem.ui.theme.warning500
+import org.example.pointofsalesystem.viewmodel.AuthViewModel
 import org.jetbrains.compose.resources.painterResource
-import pointofsalesystem.composeapp.generated.resources.Res
-import pointofsalesystem.composeapp.generated.resources.logo_point
+import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun NavGraph(
-    startDestination: String,
+    authViewModel: AuthViewModel = koinViewModel()
 ){
-    var navController = rememberNavController()
+    val navController = rememberNavController()
+    val isLoading by authViewModel.isLoading.collectAsState()
+    val isUserAuthenticated by authViewModel.isUserAuthenticated.collectAsState()
+
+    // Navega según el estado de autenticación y carga
+    LaunchedEffect(isLoading, isUserAuthenticated) {
+        val destination = when {
+            isLoading -> Route.Splash.SplashMain.route
+            !isUserAuthenticated -> Route.Auth.AuthMain.route
+            else -> Route.Dashboard.Home.route
+        }
+        navController.navigate(destination)
+    }
     NavHost(
         navController = navController,
-        startDestination = startDestination,
+        startDestination = Route.Splash.SplashMain.route,
         enterTransition = {
             slideIntoContainer(
                 AnimatedContentTransitionScope.SlideDirection.Left,
@@ -54,6 +74,11 @@ fun NavGraph(
             )
         }
     ) {
+        navigation(startDestination = Route.Splash.SplashLoading.route, route = Route.Splash.SplashMain.route){
+            composable(route = Route.Splash.SplashLoading.route) {
+                SplashScreen()
+            }
+        }
         navigation(startDestination = Route.Auth.Login.route, route = Route.Auth.AuthMain.route){
             composable(route = Route.Auth.Login.route) {
                 LoginScreen()
@@ -71,7 +96,13 @@ fun NavGraph(
         }
         navigation(startDestination = Route.Dashboard.Home.route, route = Route.Dashboard.Main.route){
             composable(route = Route.Dashboard.Home.route) {
-
+                val viewModel: AuthViewModel = koinViewModel()
+                Column(modifier = Modifier.fillMaxSize()) {
+                    Text(text = "Dashboard")
+                    ButtonPrimary("LogOut", onClick = {
+                        viewModel.signOut()
+                    })
+                }
             }
             composable(route = Route.Dashboard.Inventory.route) {
 

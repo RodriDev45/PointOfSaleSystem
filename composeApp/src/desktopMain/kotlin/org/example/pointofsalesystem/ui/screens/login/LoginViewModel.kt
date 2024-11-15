@@ -5,11 +5,25 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+import org.example.pointofsalesystem.data.repository.AuthRepository
 import org.example.pointofsalesystem.domain.model.FieldValue
 import org.example.pointofsalesystem.domain.model.LoginModel
 
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(
+    private val authRepository: AuthRepository
+) : ViewModel() {
+
+    val isUserAuthenticated = authRepository.isUserAuthenticated.stateIn(
+        viewModelScope,
+        SharingStarted.Eagerly,
+        false
+    )
+
     var rememberPassword by mutableStateOf(false)
         private set
     var email by  mutableStateOf(FieldValue(
@@ -66,6 +80,15 @@ class LoginViewModel : ViewModel() {
 
     fun login(data: LoginModel) {
         println(data)
+        viewModelScope.launch {
+            authRepository.signInWithGoogle()
+        }
+    }
+
+    fun loginGoogle(){
+        viewModelScope.launch {
+            authRepository.signInWithGoogle()
+        }
     }
 
 }
