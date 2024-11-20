@@ -6,6 +6,7 @@ sealed class Route(val route: String) {
         object AuthMain : Auth("auth")
         object Login : Auth("auth/login")
         object Register : Auth("auth/register")
+        object ForwardPassword : Auth("auth/forwardPassword")
     }
 
     sealed class Splash(route: String) : Route(route) {

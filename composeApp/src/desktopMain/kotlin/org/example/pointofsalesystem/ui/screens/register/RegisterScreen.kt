@@ -1,9 +1,12 @@
-package org.example.pointofsalesystem.ui.screens.login
+package org.example.pointofsalesystem.ui.screens.register
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
@@ -16,19 +19,22 @@ import org.example.pointofsalesystem.ui.components.buttons.ButtonPrimary
 import org.example.pointofsalesystem.ui.components.forms.CheckboxField
 import org.example.pointofsalesystem.ui.components.forms.Field
 import org.example.pointofsalesystem.ui.components.forms.FieldPassword
-import org.example.pointofsalesystem.ui.components.text.*
+import org.example.pointofsalesystem.ui.components.text.Body1
+import org.example.pointofsalesystem.ui.components.text.Body1Medium
+import org.example.pointofsalesystem.ui.components.text.Body2
+import org.example.pointofsalesystem.ui.components.text.Heading1SemiBold
 import org.example.pointofsalesystem.ui.components.widgets.Logo
 import org.example.pointofsalesystem.ui.theme.*
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun LoginScreen(
-    viewModel: LoginViewModel = koinViewModel(),
-    navToRegister: () -> Unit,
-    navToForwardPassword: () -> Unit,
+fun RegisterScreen(
+    viewModel: RegisterViewModel = koinViewModel(),
+    navToLogin: () -> Boolean
 ) {
-    val email by viewModel.loginForm.email.collectAsState()
-    val password by viewModel.loginForm.password.collectAsState()
+    val name by viewModel.registerForm.name.collectAsState()
+    val email by viewModel.registerForm.email.collectAsState()
+    val password by viewModel.registerForm.password.collectAsState()
 
     Row(
         modifier = Modifier.fillMaxSize(),
@@ -75,20 +81,28 @@ fun LoginScreen(
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 Heading1SemiBold(
-                    text = "Log in to your account",
+                    text = "Create an account",
                     color = grey900,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Spacer(modifier = Modifier.height(10.dp))
 
                 Body1(
-                    text = "Welcome back! Please enter your details.",
+                    text = "Start your 30-day free trial.",
                     color = grey500,
                     modifier = Modifier.align(Alignment.CenterHorizontally)
                 )
                 Spacer(modifier = Modifier.height(40.dp))
                 Field(
-                    label = "Email",
+                    label = "Name*",
+                    placeholder = "Enter your name",
+                    value = name.value,
+                    error = name.error,
+                    onChange = { viewModel.handleChangeName(it) },
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                Field(
+                    label = "Email*",
                     placeholder = "Enter your email",
                     value = email.value,
                     error = email.error,
@@ -96,32 +110,18 @@ fun LoginScreen(
                 )
                 Spacer(modifier = Modifier.height(20.dp))
                 FieldPassword(
-                    label = "Password",
-                    placeholder = "******",
+                    label = "Password*",
+                    placeholder = "Create a password",
                     value = password.value,
                     error = password.error,
                     onChange = { viewModel.handleChangePassword(it) },
                 )
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween,
-                    verticalAlignment = Alignment.CenterVertically
-
-                ) {
-                    CheckboxField(
-                        label = "Remember for 30 days",
-                        value = viewModel.rememberPassword,
-                        onValueChange = {viewModel.handleChangeRememberPassword(it)}
-                    )
-                    ButtonLink(
-                        text = "Forgot password"
-                    ){
-                        navToForwardPassword()
-                    }
-                }
-                Spacer(modifier = Modifier.height(20.dp))
+                Spacer(modifier = Modifier.height(6.dp))
+                Body2(
+                    text = "Must be at least 6 characters.",
+                    color = grey500,
+                )
+                Spacer(modifier = Modifier.height(15.dp))
                 if (!viewModel.errorAuth.isNullOrEmpty()){
                     Body1Medium(
                         text = viewModel.errorAuth!!,
@@ -132,16 +132,16 @@ fun LoginScreen(
                 Spacer(modifier = Modifier.height(20.dp))
                 ButtonPrimary(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "Sign In",
+                    text = "Get started",
                     onClick = {
                         viewModel.handleSubmit()
                     },
-                    isLoading = viewModel.loadingLogin
+                    isLoading = viewModel.loadingRegister
                 )
                 Spacer(modifier = Modifier.height(10.dp))
                 ButtonGoogle(
                     modifier = Modifier.fillMaxWidth(),
-                    text = "Sign in with Google",
+                    text = "Sign up with Google",
                     onClick = {
                         viewModel.loginGoogle()
                     }
@@ -154,14 +154,14 @@ fun LoginScreen(
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     Body1Medium(
-                        text = "Don’t have an account?",
+                        text = "Already have an account?",
                         color = grey500
                     )
                     Spacer(modifier = Modifier.width(8.dp))
                     ButtonLink(
-                        text = "Sign Up"
+                        text = "Log In"
                     ){
-                        navToRegister()
+                        navToLogin()
                     }
                 }
             }

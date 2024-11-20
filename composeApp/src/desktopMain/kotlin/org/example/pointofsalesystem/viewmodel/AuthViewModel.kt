@@ -73,8 +73,4 @@ class AuthViewModel(private val authRepository: AuthRepository): ViewModel() {
             authRepository.signOut()
         }
     }
-
-    fun getUser(): UserInfo? {
-        return authRepository.getCurrentUser()
-    }
 }

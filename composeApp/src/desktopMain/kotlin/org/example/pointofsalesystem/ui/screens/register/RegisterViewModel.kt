@@ -1,54 +1,51 @@
-package org.example.pointofsalesystem.ui.screens.login
+package org.example.pointofsalesystem.ui.screens.register
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import org.example.pointofsalesystem.data.repository.AuthRepository
-import org.example.pointofsalesystem.domain.model.FormField
 import org.example.pointofsalesystem.domain.model.LoginModel
 import org.example.pointofsalesystem.domain.usecase.forms.LoginForm
+import org.example.pointofsalesystem.domain.usecase.forms.RegisterForm
 import org.example.pointofsalesystem.domain.utils.Result
 
-
-class LoginViewModel(
+class RegisterViewModel (
     private val authRepository: AuthRepository,
-    val loginForm: LoginForm
+    val registerForm: RegisterForm
 ) : ViewModel() {
     var errorAuth by mutableStateOf<String?>(null)
         private set
-    var rememberPassword by mutableStateOf(false)
+    var loadingRegister by mutableStateOf(false)
         private set
-    var loadingLogin by mutableStateOf(false)
 
     fun handleChangeEmail(value: String) {
-        loginForm.updateEmail(value)
+        registerForm.updateEmail(value)
     }
     fun handleChangePassword(value: String) {
-        loginForm.updatePassword(value)
+        registerForm.updatePassword(value)
     }
 
-    fun handleChangeRememberPassword(value: Boolean) {
-        rememberPassword = value
+    fun handleChangeName(value: String) {
+        registerForm.updateName(value)
     }
 
-    fun handleSubmit() {
+    fun handleSubmit(){
         errorAuth = null
-        loginForm.validate{ data ->
-            viewModelScope.launch {
-                loadingLogin = true
-                val result = authRepository.signInWithEmail(
+        registerForm.validate{ data ->
+             viewModelScope.launch {
+                 loadingRegister = true
+                 val result = authRepository.signUpWithEmail(
+                    nameUser = data.name,
                     emailUser = data.email,
                     passwordUser = data.password,
                 )
-                if(result is Result.Error) {
+                if(result is Result.Error){
                     errorAuth = result.error
                 }
-                loadingLogin = false
+                 loadingRegister = false
             }
         }
     }
@@ -56,14 +53,12 @@ class LoginViewModel(
     fun loginGoogle(){
         errorAuth = null
         viewModelScope.launch {
-            loadingLogin = true
+            loadingRegister = true
             val result = authRepository.signInWithGoogle()
             if(result is Result.Error){
                 errorAuth = result.error
             }
-            loadingLogin = false
+            loadingRegister = false
         }
     }
-
-
 }
