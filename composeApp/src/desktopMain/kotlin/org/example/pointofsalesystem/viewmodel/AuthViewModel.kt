@@ -10,13 +10,17 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.example.pointofsalesystem.data.model.Profile
 import org.example.pointofsalesystem.data.repository.AuthRepository
+import org.example.pointofsalesystem.domain.utils.Result
 
 class AuthViewModel(private val authRepository: AuthRepository): ViewModel() {
 
     // Estado de carga para controlar el SplashScreen
     private val _isLoading = MutableStateFlow(true)
     val isLoading: StateFlow<Boolean> = _isLoading
+    private val _profile = MutableStateFlow<Profile?>(null)
+    val profile: StateFlow<Profile?> = _profile
 
     init {
         observeSessionStatus()
@@ -33,6 +37,14 @@ class AuthViewModel(private val authRepository: AuthRepository): ViewModel() {
                     is SessionStatus.Authenticated -> {
                         _isLoading.value = false
                         println("User is authenticated.")
+                        val result = status.session.user?.let { authRepository.getProfile(it.id) }
+                        result?.let {
+                            if (result is Result.Success) {
+                                _profile.value = result.data
+                            }
+                        }
+                        //println(status.session.)
+                        println(result)
                         when (status.source) {
                             SessionSource.External -> println("Authenticated from an external source")
                             is SessionSource.Refresh -> println("Authenticated via session refresh")

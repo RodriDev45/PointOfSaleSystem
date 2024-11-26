@@ -10,6 +10,7 @@ navigationCompose = "2.7.0-alpha07"
 supabase-version = "3.0.2"
 ktor-version = "3.0.1"
 kotlinx-version = "1.7.3"
+kamel-version = "1.0.0"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -32,6 +33,7 @@ supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt" }
 supabase-functions = { module = "io.github.jan-tennert.supabase:functions-kt" }
 ktor-client = { module = "io.ktor:ktor-client-java", version.ref = "ktor-version"}
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-version"}
+kamel-image = { module = "media.kamel:kamel-image-default", version.ref = "kamel-version"}
 
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
