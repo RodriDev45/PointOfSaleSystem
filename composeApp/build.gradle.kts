@@ -38,6 +38,8 @@ kotlin {
             implementation(libs.supabase.functions)
 
             implementation(libs.kotlinx.serialization)
+
+            implementation(libs.kamel.image)
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)
