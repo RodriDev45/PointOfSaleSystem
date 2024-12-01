@@ -8,7 +8,6 @@ import androidx.compose.ui.Modifier
 import org.example.pointofsalesystem.ui.navgraph.NavGraph
 import org.example.pointofsalesystem.ui.navgraph.Route
 import org.example.pointofsalesystem.ui.theme.PointOfSaleSystemTheme
-import org.example.pointofsalesystem.viewmodel.AuthViewModel
 import org.jetbrains.compose.ui.tooling.preview.Preview
 import org.koin.compose.KoinContext
 import org.koin.compose.viewmodel.koinViewModel

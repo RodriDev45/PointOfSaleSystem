@@ -15,29 +15,28 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.*
+import org.example.pointofsalesystem.data.interfaces.UserRepository
+import org.example.pointofsalesystem.domain.utils.SessionState
 import org.example.pointofsalesystem.ui.components.buttons.ButtonPrimary
 import org.example.pointofsalesystem.ui.components.text.Body2
 import org.example.pointofsalesystem.ui.screens.dashboard.DashboardLayout
 import org.example.pointofsalesystem.ui.screens.login.LoginScreen
 import org.example.pointofsalesystem.ui.screens.register.RegisterScreen
 import org.example.pointofsalesystem.ui.screens.splash.SplashScreen
-import org.example.pointofsalesystem.viewmodel.AuthViewModel
-import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun NavGraph(
-    authViewModel: AuthViewModel = koinViewModel()
 ){
     val navController = rememberNavController()
-    val isLoading by authViewModel.isLoading.collectAsState()
-    val isUserAuthenticated by authViewModel.isUserAuthenticated.collectAsState()
-
+    LaunchedEffect(Unit){
+        SessionState.checkSession()
+    }
 
     // Navega según el estado de autenticación y carga
-    LaunchedEffect(isLoading, isUserAuthenticated) {
+    LaunchedEffect(SessionState.loadingSession, SessionState.isLoggedIn) {
         val destination = when {
-            isLoading -> Route.Splash.SplashMain.route
-            !isUserAuthenticated -> Route.Auth.AuthMain.route
+            SessionState.loadingSession -> Route.Splash.SplashMain.route
+            !SessionState.isLoggedIn -> Route.Auth.AuthMain.route
             else -> Route.Dashboard.Main.route
         }
         navController.navigate(destination)
