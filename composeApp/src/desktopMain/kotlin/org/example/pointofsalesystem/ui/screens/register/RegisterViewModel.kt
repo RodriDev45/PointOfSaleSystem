@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import org.example.pointofsalesystem.data.repository.AuthRepository
+import org.example.pointofsalesystem.data.interfaces.AuthRepository
 import org.example.pointofsalesystem.domain.model.LoginModel
 import org.example.pointofsalesystem.domain.usecase.forms.LoginForm
 import org.example.pointofsalesystem.domain.usecase.forms.RegisterForm
@@ -37,10 +37,10 @@ class RegisterViewModel (
         registerForm.validate{ data ->
              viewModelScope.launch {
                  loadingRegister = true
-                 val result = authRepository.signUpWithEmail(
-                    nameUser = data.name,
-                    emailUser = data.email,
-                    passwordUser = data.password,
+                 val result = authRepository.registerWithCredentials(
+                    name = data.name,
+                    email = data.email,
+                    password = data.password,
                 )
                 if(result is Result.Error){
                     errorAuth = result.error

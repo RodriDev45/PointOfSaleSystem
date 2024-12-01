@@ -12,6 +12,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import org.example.pointofsalesystem.ui.components.containers.ContainerDashboard
 
 @Composable
 fun DashboardNavHost(navController: NavHostController) {
@@ -44,12 +45,12 @@ fun DashboardNavHost(navController: NavHostController) {
         }
     ) {
         composable(route = Route.Dashboard.Home.route) {
-            Column(modifier = Modifier.fillMaxSize().padding(20.dp)) {
+            ContainerDashboard {
                 Text("Home Screen")
             }
         }
         composable(route = Route.Dashboard.Inventory.route) {
-            Column(modifier = Modifier.fillMaxSize()) {
+            ContainerDashboard {
                 Text("Inventory Screen")
             }
         }

@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
-import org.example.pointofsalesystem.data.repository.AuthRepository
+import org.example.pointofsalesystem.data.interfaces.AuthRepository
 import org.example.pointofsalesystem.domain.model.FormField
 import org.example.pointofsalesystem.domain.model.LoginModel
 import org.example.pointofsalesystem.domain.usecase.forms.LoginForm
@@ -41,9 +41,9 @@ class LoginViewModel(
         loginForm.validate{ data ->
             viewModelScope.launch {
                 loadingLogin = true
-                val result = authRepository.signInWithEmail(
-                    emailUser = data.email,
-                    passwordUser = data.password,
+                val result = authRepository.signInWithCredentials(
+                    email = data.email,
+                    password = data.password,
                 )
                 if(result is Result.Error) {
                     errorAuth = result.error
@@ -58,7 +58,8 @@ class LoginViewModel(
         viewModelScope.launch {
             loadingLogin = true
             val result = authRepository.signInWithGoogle()
-            if(result is Result.Error){
+            println(result)
+            if (result is Result.Error) {
                 errorAuth = result.error
             }
             loadingLogin = false

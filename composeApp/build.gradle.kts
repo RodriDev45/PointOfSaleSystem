@@ -40,6 +40,23 @@ kotlin {
             implementation(libs.kotlinx.serialization)
 
             implementation(libs.kamel.image)
+            implementation(libs.oracle.database)
+
+            //ktor
+            implementation(libs.ktor.core)
+            implementation(libs.ktor.cio)
+            implementation(libs.ktor.json)
+            implementation(libs.ktor.auth)
+            implementation(libs.ktor.server.core)
+            implementation(libs.ktor.server.netty)
+
+            //Jwt
+            implementation(libs.java.jwt)
+            implementation(libs.jwk.rsa)
+
+            //jbcrypt
+            implementation(libs.jbcrypt)
+
         }
         desktopMain.dependencies {
             implementation(compose.desktop.currentOs)

@@ -19,7 +19,6 @@ import org.example.pointofsalesystem.ui.components.widgets.Logo
 import org.example.pointofsalesystem.ui.navgraph.Route
 import org.example.pointofsalesystem.ui.theme.Primary500
 import org.example.pointofsalesystem.ui.theme.grey600
-import org.example.pointofsalesystem.viewmodel.AuthViewModel
 import org.jetbrains.compose.resources.DrawableResource
 import org.jetbrains.compose.resources.painterResource
 import org.koin.compose.viewmodel.koinViewModel
