@@ -1,19 +1,23 @@
 package org.example.pointofsalesystem.data.repository
 
+import com.zaxxer.hikari.HikariDataSource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import org.example.pointofsalesystem.data.datasource.MysqlDataSource
 import org.example.pointofsalesystem.data.datasource.OracleDataSource
 import org.example.pointofsalesystem.data.interfaces.UserRepository
 import org.example.pointofsalesystem.data.model.User
 import org.example.pointofsalesystem.domain.utils.Result
 import java.sql.SQLException
 
-class UserRepositoryImpl : UserRepository {
+class UserRepositoryImpl(
+    private val dataSource: HikariDataSource,
+) : UserRepository {
     override suspend fun insertUser(newUser: User): Result<String> {
         val query = "INSERT INTO users (id, name, email, password, picture, google_id) VALUES (?, ?, ?, ?, ?, ?)"
         return withContext(Dispatchers.IO) {
             try {
-                OracleDataSource.getConnection().use { connection ->
+                dataSource.connection.use { connection ->
                     val preparedStatement = connection.prepareStatement(query)
                     preparedStatement.setString(1, newUser.id)
                     preparedStatement.setString(2, newUser.name)
@@ -40,7 +44,7 @@ class UserRepositoryImpl : UserRepository {
         val query = "UPDATE users SET name = ?, picture = ?, role = ? WHERE id = ?"
         return withContext(Dispatchers.IO) {
             try {
-                OracleDataSource.getConnection().use { connection ->
+                dataSource.connection.use { connection ->
                     val preparedStatement = connection.prepareStatement(query)
                     preparedStatement.use {
                         // Establece los valores de las columnas a actualizar
@@ -69,7 +73,7 @@ class UserRepositoryImpl : UserRepository {
         val query = "DELETE FROM users WHERE id = ?"
         return withContext(Dispatchers.IO){
             try {
-                OracleDataSource.getConnection().use { connection ->
+                dataSource.connection.use { connection ->
                     val preparedStatement = connection.prepareStatement(query)
                     preparedStatement.use {
                         it.setString(1, user.id)
@@ -92,7 +96,7 @@ class UserRepositoryImpl : UserRepository {
         val query = "SELECT * FROM users WHERE id = ?"
         return withContext(Dispatchers.IO){
             try {
-                OracleDataSource.getConnection().use { connection ->
+                dataSource.connection.use { connection ->
                     val preparedStatement = connection.prepareStatement(query)
                     preparedStatement.setString(1, userId)
                     val resultSet = preparedStatement.executeQuery()
@@ -122,7 +126,7 @@ class UserRepositoryImpl : UserRepository {
         val query = "SELECT * FROM users WHERE email = ?"
         return withContext(Dispatchers.IO){
             try {
-                OracleDataSource.getConnection().use { connection ->
+                dataSource.connection.use { connection ->
                     val preparedStatement = connection.prepareStatement(query)
                     preparedStatement.setString(1, email)
                     val resultSet = preparedStatement.executeQuery()

@@ -19,6 +19,8 @@ sealed class Route(val route: String) {
         object Main : Dashboard("dashboard")
         object Home : Dashboard("dashboard/home")
         object Inventory : Dashboard("dashboard/inventory")
+        object InventoryAddProduct : Dashboard("dashboard/inventory/add-product")
+
         object Reports : Dashboard("dashboard/reports")
         object Suppliers : Dashboard("dashboard/suppliers")
         object Orders : Dashboard("dashboard/orders")

@@ -27,6 +27,8 @@ val grey700 = Color(0xFF48505E)
 val grey800 = Color(0xFF383E49)
 val grey900 = Color(0xFF2B2F38)
 
+val modalColor = Color(0x33000000)
+
 val success50 = Color(0xFFE7F8F0)
 val success600 = Color(0xFF10A760)
 val success100 = Color(0xFFB6E9D1)

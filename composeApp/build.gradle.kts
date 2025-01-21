@@ -49,6 +49,7 @@ kotlin {
             implementation(libs.ktor.auth)
             implementation(libs.ktor.server.core)
             implementation(libs.ktor.server.netty)
+            implementation(libs.ktor.websocket)
 
             //Jwt
             implementation(libs.java.jwt)
@@ -56,6 +57,12 @@ kotlin {
 
             //jbcrypt
             implementation(libs.jbcrypt)
+
+            //mysql
+            implementation(libs.mysql.database)
+
+            //Hikari Pool
+            implementation(libs.hikari.pool)
 
         }
         desktopMain.dependencies {

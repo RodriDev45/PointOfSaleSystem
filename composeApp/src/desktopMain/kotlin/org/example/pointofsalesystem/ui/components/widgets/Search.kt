@@ -30,6 +30,7 @@ fun Search(
     value: String,
     onChange: (String) -> Unit,
     modifier: Modifier = Modifier,
+    paddingValues: PaddingValues = PaddingValues(horizontal = 12.dp, vertical = 8.dp),
 ){
     var isFocused by remember { mutableStateOf(false) }
 
@@ -45,7 +46,7 @@ fun Search(
                 } else grey200, // Color del borde
                 shape = RoundedCornerShape(Shapes.ROUNDED_CORNER_SHAPE)
             )
-            .padding(horizontal = 12.dp, vertical = 8.dp),
+            .padding(paddingValues),
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {

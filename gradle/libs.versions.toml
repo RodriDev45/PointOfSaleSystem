@@ -12,9 +12,11 @@ ktor-version = "3.0.1"
 kotlinx-version = "1.7.3"
 kamel-version = "1.0.0"
 jdbc-version = "19.14.0.0"
+mysql-version = "8.0.29"
 jwt-version = "4.4.0"
 jwk-version = "0.22.0"
 jbcrypt-version = "0.4"
+hikari-version = "6.2.1"
 
 [libraries]
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
@@ -41,13 +43,17 @@ ktor-cio = { module = "io.ktor:ktor-client-cio", version.ref = "ktor-version"}
 ktor-json = { module = "io.ktor:ktor-client-json", version.ref = "ktor-version"}
 ktor-auth = { module = "io.ktor:ktor-client-auth", version.ref = "ktor-version"}
 ktor-server-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor-version"}
+ktor-websocket = { module = "io.ktor:ktor-client-websockets", version.ref = "ktor-version" }
 ktor-server-netty = { module = "io.ktor:ktor-server-netty", version.ref = "ktor-version"}
 kotlinx-serialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-version"}
 kamel-image = { module = "media.kamel:kamel-image-default", version.ref = "kamel-version"}
 oracle-database = { module = "com.oracle.database.jdbc:ojdbc8", version.ref = "jdbc-version"}
+mysql-database = { module = "mysql:mysql-connector-java", version.ref = "mysql-version"}
 java-jwt = { module = "com.auth0:java-jwt", version.ref = "jwt-version"}
 jwk-rsa = { module = "com.auth0:jwks-rsa", version.ref = "jwk-version"}
 jbcrypt = { module = "org.mindrot:jbcrypt", version.ref = "jbcrypt-version"}
+hikari-pool = { module = "com.zaxxer:HikariCP", version.ref = "hikari-version"}
+
 
 [plugins]
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }

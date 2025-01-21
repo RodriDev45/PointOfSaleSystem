@@ -22,7 +22,7 @@ object TokenManager {
             .withClaim("email", email)
             .withClaim("role", role)
             .withIssuedAt(Date())
-            .withExpiresAt(Date(System.currentTimeMillis() + 3600 * 1000)) // 1 hora
+            .withExpiresAt(Date(System.currentTimeMillis() + 7*24*3600*1000)) // 7 dias
             .sign(algorithm)
     }
 
