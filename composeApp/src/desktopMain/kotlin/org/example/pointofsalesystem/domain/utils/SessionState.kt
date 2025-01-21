@@ -3,6 +3,7 @@ package org.example.pointofsalesystem.domain.utils
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import kotlinx.coroutines.delay
 import org.example.pointofsalesystem.data.interfaces.UserRepository
 import org.example.pointofsalesystem.data.model.User
 import org.koin.core.component.KoinComponent
@@ -36,6 +37,8 @@ object SessionState : KoinComponent {
             val result = userRepository.getUserById(jwt.subject)
             if(result is Result.Success) {
                 user = result.data
+                //Pausa de 2 segundos
+                delay(2000)
                 isLoggedIn = true
             }
         }

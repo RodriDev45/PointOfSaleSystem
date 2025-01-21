@@ -25,6 +25,7 @@ fun CheckboxField(
     onValueChange: (Boolean) -> Unit,
     label: String? = null,
     modifier: Modifier = Modifier,
+    colorText: Color = grey700,
     checkedColor: Color = Primary600,
     uncheckedColor: Color = grey300,
 
@@ -60,7 +61,7 @@ fun CheckboxField(
       if(!label.isNullOrEmpty()){
           Body1Medium(
               text = label,
-              color = grey700
+              color = colorText
           )
       }
   }

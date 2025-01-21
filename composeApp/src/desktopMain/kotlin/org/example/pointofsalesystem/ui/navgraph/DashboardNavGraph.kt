@@ -2,17 +2,14 @@ package org.example.pointofsalesystem.ui.navgraph
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import org.example.pointofsalesystem.ui.components.containers.ContainerDashboard
+import org.example.pointofsalesystem.ui.screens.dashboard.inventory.InventoryScreen
+import org.example.pointofsalesystem.ui.screens.dashboard.inventory.product.addproduct.AddProductScreen
 
 @Composable
 fun DashboardNavHost(navController: NavHostController) {
@@ -50,9 +47,12 @@ fun DashboardNavHost(navController: NavHostController) {
             }
         }
         composable(route = Route.Dashboard.Inventory.route) {
-            ContainerDashboard {
-                Text("Inventory Screen")
-            }
+            InventoryScreen(navController = navController)
+        }
+        composable(route = Route.Dashboard.InventoryAddProduct.route) {
+            AddProductScreen(
+                onNavToInventory = {navController.popBackStack()}
+            )
         }
     }
 }
